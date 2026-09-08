@@ -1,34 +1,62 @@
 Projeto feito por: Otavio Augusto, Caua Rodriguez e Matheus Elias
 
+API desenvolvida com FastAPI para gerenciamento do **Freejob**, uma plataforma de marketplace de freelancers voltada para o setor de tecnologia/TI. O sistema controla o cadastro de categorias, usuários (clientes e freelancers) e dos perfis de freelancer vinculados a cada usuário, permitindo consultar, cadastrar e remover essas informações via endpoints HTTP.
 
-
-API desenvolvida com FastAPI para gerenciamento de um PetShop. O sistema controla o cadastro de tutores (donos dos animais) e dos pets vinculados a cada tutor, permitindo consultar e futuramente gerenciar essas informações de forma simples via endpoints HTTP.
-
-### Tabela 1 — Tutores
+### Tabela 1 — Categoria
 
 | Campo | Tipo | Descrição |
 |---|---|---|
-| id | int | Identificador único do tutor |
-| nome | string | Nome do tutor |
-| telefone | string | Telefone do tutor |
-| email | string | E-mail do tutor |
+| id_categoria | int | Identificador único da categoria |
+| nome | string | Nome da categoria (ex: Design, Desenvolvimento) |
 
-### Tabela 2 — Pets
+### Tabela 2 — Usuario
 
 | Campo | Tipo | Descrição |
 |---|---|---|
-| id | int | Identificador único do pet |
-| nome | string | Nome do pet |
-| raça | string | Raça do pet |
-| tutorid | int | Identificador do tutor responsável |
+| id_usuario | int | Identificador único do usuário |
+| nome | string | Nome do usuário |
+| email | string | E-mail do usuário |
+| telefone | string | Telefone do usuário |
+| tipo_usuario | string | Tipo do usuário (ex: Cliente, Freelancer) — padrão "cliente" |
+| data_cadastro | datetime | Data em que o usuário foi cadastrado |
+
+### Tabela 3 — Freelancer
+
+| Campo | Tipo | Descrição |
+|---|---|---|
+| id_freelancer | int | Identificador único do perfil de freelancer |
+| especialidade | string | Especialidade do freelancer |
+| valor_hora | int | Valor cobrado por hora de trabalho |
+| bio | string | Descrição/biografia do freelancer |
+| habilidade | string | Habilidades do freelancer |
+| id_usuario | int | Identificador do usuário vinculado a este perfil |
+| id_categoria | int | Identificador da categoria vinculada a este perfil |
 
 ## Contrato das Rotas HTTP
 
-As rotas abaixo representam as operações CRUD da entidade `Tutores`.
+### Usuario
 
 | Método | Endpoint | Descrição |
 |---|---|---|
-| GET | `/tutores` | Lista todos os tutores |
-| GET | `/tutores/{tutor_id}` | Busca um tutor pelo ID |
-| POST | `/tutores` | Cadastra um novo tutor |
-| DELETE | `/tutores/{tutor_id}` | Remove um tutor pelo ID |
+| GET | `/usuario/` | Lista todos os usuários (aceita filtro `?nome=`) |
+| GET | `/usuario/{usuario_id}` | Busca um usuário pelo ID |
+| POST | `/usuario/` | Cadastra um novo usuário |
+| DELETE | `/usuario/{usuario_id}` | Remove um usuário pelo ID |
+
+### Freelancer
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/freelancer/` | Lista todos os freelancers (aceita filtro `?habilidade=`) |
+| GET | `/freelancer/{freelancer_id}` | Busca um freelancer pelo ID |
+| POST | `/freelancer/` | Cadastra um novo perfil de freelancer (requer `id_usuario` e `id_categoria` já existentes) |
+| DELETE | `/freelancer/{freelancer_id}` | Remove um freelancer pelo ID |
+
+### Categoria
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/categoria/` | Lista todas as categorias |
+| GET | `/categoria/{categoria_id}` | Busca uma categoria pelo ID |
+| POST | `/categoria/` | Cadastra uma nova categoria |
+| DELETE | `/categoria/{categoria_id}` | Remove uma categoria pelo ID |
