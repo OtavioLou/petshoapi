@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 # Definindo conexão com o SQLite
-DATABASE_URL = "sqlite:///./petshop.db"
+DATABASE_URL = "sqlite:///./freejob.db"
 
 # Criando o motor do SQLAlchemy
 engine = create_engine(
