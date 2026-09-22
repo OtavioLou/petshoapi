@@ -70,11 +70,7 @@ class FreelancerModel(Base):
         autoincrement=True
     )
 
-    especialidade = Column(
-        String,
-        nullable=True,
-        
-    )
+    
 
     valor_hora = Column(
         Integer,

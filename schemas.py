@@ -13,7 +13,7 @@ class UsuarioSchema(BaseModel):
     tipo_usuario: str
 
 class FreelancerSchema(BaseModel):
-    especialidade:str
+    
     valor_hora: int
     bio: str
     habilidade: str
