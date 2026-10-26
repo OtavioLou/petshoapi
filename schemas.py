@@ -1,7 +1,6 @@
 from typing import Literal
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
-
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 # schemas de entrada de dados (post/put)
 class CategoriaSchema(BaseModel):
@@ -11,9 +10,27 @@ class CategoriaSchema(BaseModel):
 class UsuarioSchema(BaseModel):
     nome: str = Field(min_length=2, max_length=100)
     email: EmailStr
-    telefone: str = Field(min_length=8, max_length=20)
+    telefone: str = Field(min_length=10, max_length=20)
     tipo_usuario: Literal["cliente", "freelancer"] = "cliente"
 
+    @field_validator("telefone")
+    @classmethod
+    def validar_telefone(cls, valor: str) -> str:
+        digitos = "".join(caractere for caractere in valor if caractere.isdigit())
+
+        if len(digitos) not in (10, 11):
+            raise ValueError(
+                "O telefone deve conter DDD e 10 ou 11 dígitos."
+            )
+
+        caracteres_permitidos = set("0123456789()+- .")
+
+        if any(caractere not in caracteres_permitidos for caractere in valor):
+            raise ValueError(
+                "O telefone contém caracteres inválidos."
+            )
+
+        return valor
 
 class FreelancerSchema(BaseModel):
     valor_hora: int = Field(gt=0)
