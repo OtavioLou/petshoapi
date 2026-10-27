@@ -1,9 +1,20 @@
+Set-Content .gitignore @"
 .venv/
 venv/
+<<<<<<< HEAD
+=======
+petshoapi/
+>>>>>>> 2399454 (Corrige indentacao do models.py e ajusta gitignore)
 __pycache__/
 *.pyc
 .env
 *.db
 *.sqlite
 *.sqlite3
+<<<<<<< HEAD
 
+=======
+"@
+git rm --cached petshoapi
+git status
+>>>>>>> 2399454 (Corrige indentacao do models.py e ajusta gitignore)
